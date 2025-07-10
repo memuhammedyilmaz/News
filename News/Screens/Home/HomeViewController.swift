@@ -10,18 +10,36 @@ import SnapKit
 
 class HomeViewController: UIViewController {
     
-    private let networkManager = NetworkManager()
+    private var viewModel = HomeViewModel()
     
+   
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.register(NewsCell.self, forCellReuseIdentifier: NewsCell.identifier)
+        tableView.rowHeight = 200
         return tableView
     }()
+    
+    init(viewModel: HomeViewModel = HomeViewModel()) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
+        viewModel.onDataUpdated = { [weak self] in
+            DispatchQueue.main.async {
+               self?.tableView.reloadData()
+            }
+        }
+        viewModel.fetchArticles()
     }
 }
 
@@ -37,25 +55,24 @@ extension HomeViewController {
     }
     
     func configureLayout() {
-        tableView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+        tableView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
         }
-
     }
 }
 
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 20
+        viewModel.articles.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .default, reuseIdentifier: "cell")
-        cell.textLabel?.text = "Row \(indexPath.row + 1)"
-        print(networkManager.fetchUser())
+        let cell = tableView.dequeueReusableCell(withIdentifier: NewsCell.identifier, for: indexPath) as! NewsCell
+        cell.configure(with: viewModel.articles[indexPath.row])
         return cell
     }
+    
 
 }
 

@@ -9,30 +9,31 @@ import Foundation
 
 class NetworkManager {
     
-    func fetchUser() {
+    func fetchArticles(completion: @escaping (Result<NewsModel, Error>) -> Void) {
         guard let url = URL(string: baseUrl) else {
-            print("Invalid URL")
+            completion(.failure(NetworkError.ErrorType.invalidURL))
             return
         }
         
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error {
-                print(error.localizedDescription)
+                completion(.failure(NetworkError.ErrorType.networkError))
+                return
             }
-            
             guard let data = data else {
-                print("No data received")
+                completion(.failure(NetworkError.ErrorType.unknownError))
                 return
             }
             
             do {
                 let newsModel = try JSONDecoder().decode(NewsModel.self, from: data)
-                print(newsModel)
+                completion(.success(newsModel))
             } catch {
-                print("Decoding error: \(error.localizedDescription)")
+                completion(.failure(NetworkError.ErrorType.decodingError))
             }
         }
-            task.resume()
+        task.resume()
+       
     }
 }
 
