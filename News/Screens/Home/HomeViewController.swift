@@ -8,16 +8,21 @@
 import UIKit
 import SnapKit
 
+protocol HomeViewControllerProtocol: AnyObject {
+    func onDataUpdated()
+}
+
 class HomeViewController: UIViewController {
     
     private var viewModel = HomeViewModel()
-    
+    private var isLoading = true
    
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(NewsCell.self, forCellReuseIdentifier: NewsCell.identifier)
+        tableView.register(SkeletonCell.self, forCellReuseIdentifier: SkeletonCell.identifier)
         tableView.rowHeight = 200
         return tableView
     }()
@@ -34,14 +39,22 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
-        viewModel.onDataUpdated = { [weak self] in
-            DispatchQueue.main.async {
-               self?.tableView.reloadData()
-            }
-        }
+        bindViewModel()
         viewModel.fetchArticles()
     }
+    
+    private func bindViewModel() {
+           viewModel.onDataUpdated = { [weak self] in
+               guard let self = self else { return }
+               DispatchQueue.main.async {
+                   self.isLoading = false
+                   self.tableView.reloadData()
+               }
+           }
+       }
 }
+
+
 
 extension HomeViewController {
     func configureView() {
@@ -61,16 +74,37 @@ extension HomeViewController {
     }
 }
 
+extension HomeViewController: HomeViewControllerProtocol {
+    
+    func onDataUpdated() {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+}
+
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        viewModel.articles.count
+        isLoading ? 5 : viewModel.articles.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: NewsCell.identifier, for: indexPath) as! NewsCell
-        cell.configure(with: viewModel.articles[indexPath.row])
-        return cell
+            if isLoading {
+                let cell = tableView.dequeueReusableCell(withIdentifier: SkeletonCell.identifier, for: indexPath) as! SkeletonCell
+                return cell
+            } else {
+                let cell = tableView.dequeueReusableCell(withIdentifier: NewsCell.identifier, for: indexPath) as! NewsCell
+                cell.configure(with: viewModel.articles[indexPath.row])
+                return cell
+            }
+        }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let article = viewModel.articles[indexPath.row]
+        let detailVC = DetailViewController(article: article)
+        navigationController?.pushViewController(detailVC, animated: true)
     }
     
 

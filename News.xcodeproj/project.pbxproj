@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		52C0B7FD2E21957100054FC5 /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = 52C0B7FC2E21957100054FC5 /* SkeletonView */; };
 		52D22B2A2E13A8BA006AAF5D /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 52D22B292E13A8BA006AAF5D /* SnapKit */; };
 		52D22B2D2E13A8CE006AAF5D /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 52D22B2C2E13A8CE006AAF5D /* Kingfisher */; };
 /* End PBXBuildFile section */
@@ -42,6 +43,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				52D22B2D2E13A8CE006AAF5D /* Kingfisher in Frameworks */,
+				52C0B7FD2E21957100054FC5 /* SkeletonView in Frameworks */,
 				52D22B2A2E13A8BA006AAF5D /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -87,6 +89,7 @@
 			packageProductDependencies = (
 				52D22B292E13A8BA006AAF5D /* SnapKit */,
 				52D22B2C2E13A8CE006AAF5D /* Kingfisher */,
+				52C0B7FC2E21957100054FC5 /* SkeletonView */,
 			);
 			productName = News;
 			productReference = 52D22B102E13A850006AAF5D /* News.app */;
@@ -119,6 +122,7 @@
 			packageReferences = (
 				52D22B282E13A8BA006AAF5D /* XCRemoteSwiftPackageReference "SnapKit" */,
 				52D22B2B2E13A8CE006AAF5D /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				52C0B7FB2E21957100054FC5 /* XCRemoteSwiftPackageReference "SkeletonView" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 52D22B112E13A850006AAF5D /* Products */;
@@ -360,6 +364,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		52C0B7FB2E21957100054FC5 /* XCRemoteSwiftPackageReference "SkeletonView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Juanpe/SkeletonView";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.31.0;
+			};
+		};
 		52D22B282E13A8BA006AAF5D /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -379,6 +391,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		52C0B7FC2E21957100054FC5 /* SkeletonView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 52C0B7FB2E21957100054FC5 /* XCRemoteSwiftPackageReference "SkeletonView" */;
+			productName = SkeletonView;
+		};
 		52D22B292E13A8BA006AAF5D /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 52D22B282E13A8BA006AAF5D /* XCRemoteSwiftPackageReference "SnapKit" */;

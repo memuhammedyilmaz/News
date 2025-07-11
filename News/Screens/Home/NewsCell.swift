@@ -9,13 +9,13 @@ import UIKit
 import SnapKit
 import Kingfisher
 
+
+
 class NewsCell: UITableViewCell {
 
    static let identifier = "NewsCell"
     
-    private var article: Article?
-    
-    
+    private var article: Article?    
     
     private let newsImageView: UIImageView = {
         let imageView = UIImageView()
@@ -115,3 +115,5 @@ extension NewsCell {
 #Preview {
     HomeViewController()
 }
+
+
