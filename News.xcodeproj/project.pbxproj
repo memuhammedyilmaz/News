@@ -10,6 +10,7 @@
 		52C0B7FD2E21957100054FC5 /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = 52C0B7FC2E21957100054FC5 /* SkeletonView */; };
 		52D22B2A2E13A8BA006AAF5D /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 52D22B292E13A8BA006AAF5D /* SnapKit */; };
 		52D22B2D2E13A8CE006AAF5D /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 52D22B2C2E13A8CE006AAF5D /* Kingfisher */; };
+		52EB626C2E23FEF10062FD10 /* SettingsKit in Frameworks */ = {isa = PBXBuildFile; productRef = 52EB626B2E23FEF10062FD10 /* SettingsKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				52EB626C2E23FEF10062FD10 /* SettingsKit in Frameworks */,
 				52D22B2D2E13A8CE006AAF5D /* Kingfisher in Frameworks */,
 				52C0B7FD2E21957100054FC5 /* SkeletonView in Frameworks */,
 				52D22B2A2E13A8BA006AAF5D /* SnapKit in Frameworks */,
@@ -90,6 +92,7 @@
 				52D22B292E13A8BA006AAF5D /* SnapKit */,
 				52D22B2C2E13A8CE006AAF5D /* Kingfisher */,
 				52C0B7FC2E21957100054FC5 /* SkeletonView */,
+				52EB626B2E23FEF10062FD10 /* SettingsKit */,
 			);
 			productName = News;
 			productReference = 52D22B102E13A850006AAF5D /* News.app */;
@@ -123,6 +126,7 @@
 				52D22B282E13A8BA006AAF5D /* XCRemoteSwiftPackageReference "SnapKit" */,
 				52D22B2B2E13A8CE006AAF5D /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				52C0B7FB2E21957100054FC5 /* XCRemoteSwiftPackageReference "SkeletonView" */,
+				52EB626A2E23FEF10062FD10 /* XCRemoteSwiftPackageReference "SettingsKit" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 52D22B112E13A850006AAF5D /* Products */;
@@ -388,6 +392,14 @@
 				minimumVersion = 8.3.3;
 			};
 		};
+		52EB626A2E23FEF10062FD10 /* XCRemoteSwiftPackageReference "SettingsKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sebjvidal/SettingsKit.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -405,6 +417,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 52D22B2B2E13A8CE006AAF5D /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		52EB626B2E23FEF10062FD10 /* SettingsKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 52EB626A2E23FEF10062FD10 /* XCRemoteSwiftPackageReference "SettingsKit" */;
+			productName = SettingsKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
