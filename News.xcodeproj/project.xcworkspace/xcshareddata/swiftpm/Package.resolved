@@ -1,5 +1,5 @@
 {
-  "originHash" : "69848a1af8095c265136292f3cc35e41cb1402244ef97cbace5a68ee04c4c51c",
+  "originHash" : "1d3cdf766aa3ff1eb6caff51394fadbd5ebc8ff655a4a439016db6c07f1a4883",
   "pins" : [
     {
       "identity" : "kingfisher",
@@ -8,15 +8,6 @@
       "state" : {
         "revision" : "010a06c4387cea2d13606222b6c08e0454e6dd2d",
         "version" : "8.3.3"
-      }
-    },
-    {
-      "identity" : "settingskit",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/sebjvidal/SettingsKit.git",
-      "state" : {
-        "branch" : "main",
-        "revision" : "a8ab9fd9cc37b79db2415fd55c5d977d554aaab6"
       }
     },
     {
