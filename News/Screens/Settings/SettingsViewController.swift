@@ -8,6 +8,8 @@ import UIKit
 
 class SettingsViewController: UIViewController {
     
+
+    
     private lazy var TableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .insetGrouped)
         tableView.dataSource = self
@@ -30,7 +32,9 @@ class SettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
+        ThemeManager.shared.applySavedTheme()
     }
+    
     
     
     
@@ -57,7 +61,9 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
            switch item.type {
            case .theme:
                let segmentedControl = UISegmentedControl(items: ["Light", "Dark"])
-               cell.accessoryView = segmentedControl
+                          segmentedControl.selectedSegmentIndex = UserDefaults.standard.integer(forKey: "theme")
+                          segmentedControl.addTarget(self, action: #selector(themeChanged(_:)), for: .valueChanged)
+                          cell.accessoryView = segmentedControl
            case .notification:
                cell.accessoryView = switcher
            case .rateApp, .privacyPolicy, .termOfUse:
@@ -66,6 +72,16 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
            
            return cell
        }
+    
+    @objc func themeChanged(_ sender: UISegmentedControl) {
+        let selectedThemeIndex = sender.selectedSegmentIndex
+        let style: UIUserInterfaceStyle = selectedThemeIndex == 0 ? .light : .dark
+        UIApplication.shared.windows.forEach { window in
+            window.overrideUserInterfaceStyle = style
+        }
+        ThemeManager.shared.saveTheme(selectedThemeIndex)
+    }
+
 
       
 }

@@ -20,6 +20,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window.rootViewController = splashVC
         window.makeKeyAndVisible()
+        
+        ThemeManager.shared.applySavedTheme()
+        
+        
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

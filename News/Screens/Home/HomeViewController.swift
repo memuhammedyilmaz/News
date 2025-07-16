@@ -48,6 +48,7 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        ThemeManager.shared.applySavedTheme()
         configureView()
         bindViewModel()
         viewModel.fetchArticles()

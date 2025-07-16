@@ -28,6 +28,7 @@ class SplashViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        ThemeManager.shared.applySavedTheme()
         configureView()
         navigationToTabBar()
     }
