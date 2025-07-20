@@ -66,6 +66,7 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
                           cell.accessoryView = segmentedControl
            case .notification:
                cell.accessoryView = switcher
+               switcher.addTarget(self, action: #selector(notificationManager(_:)), for: .valueChanged)
            case .rateApp, .privacyPolicy, .termOfUse:
                cell.accessoryType = .disclosureIndicator
            }
@@ -73,12 +74,35 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
            return cell
        }
     
+    @objc func notificationManager(_ sender: UISwitch) {
+        if sender.isOn {
+            let center = UNUserNotificationCenter.current()
+            center.requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+                if granted {
+                    print("Notifications enabled")
+                } else if let error = error {
+                    print("Error requesting notifications permission: \(error.localizedDescription)")
+                } else {
+                    print("Notifications permission denied")
+                }
+            }
+        }
+    }
+    
     @objc func themeChanged(_ sender: UISegmentedControl) {
         let selectedThemeIndex = sender.selectedSegmentIndex
         let style: UIUserInterfaceStyle = selectedThemeIndex == 0 ? .light : .dark
-        UIApplication.shared.windows.forEach { window in
-            window.overrideUserInterfaceStyle = style
+        
+        
+        
+        UIApplication.shared.connectedScenes.forEach { window in
+            if let windowScene = window as? UIWindowScene {
+                windowScene.windows.forEach { window in
+                    window.overrideUserInterfaceStyle = style
+                }
+            }
         }
+         
         ThemeManager.shared.saveTheme(selectedThemeIndex)
     }
 
